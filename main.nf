@@ -12,10 +12,10 @@ workflow {
         file("${params.input_bucket}/rpe1_normalized_singlecell_01_filtered.h5ad")
     )
 
-    COMPUTE_EXPRESSION(ch_files)
+    COMPUTE_PVALUES(ch_files)
 }
 
-process COMPUTE_EXPRESSION {
+process COMPUTE_PVALUES {
     publishDir params.outdir, mode: 'copy'
 
     input:
@@ -26,6 +26,6 @@ process COMPUTE_EXPRESSION {
 
     script:
     """
-    compute_observed_expression.py ${h5ad_file}
+    compute_pvalues.py ${h5ad_file}
     """
 }
